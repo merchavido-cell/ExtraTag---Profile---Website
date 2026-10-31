@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf" content="{{ csrf }}">
+<title>ExtraTag – Profile</title>
+<link rel="icon" href="/static/logo.png">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="splash"><div id="splash-logo" class="logo-badge"><img src="/static/logo.png" alt="ExtraTag Profile"></div></div>
+
+<div id="app" hidden>
+  <header class="navbar">
+    <button id="avatar-btn" class="profile-avatar circle" type="button" aria-label="Edit profile" hidden>?</button>
+    <div class="logo-badge small"><img src="/static/logo.png" alt="ExtraTag Profile"></div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" hidden>
+      <button class="side-item" data-go="home" type="button">Home</button>
+      <button class="side-item" data-go="edit" type="button">Profile</button>
+      <button class="side-item" data-go="avatar" type="button">Avatar</button>
+      <button class="side-item" data-go="security" type="button">Security</button>
+      <button class="side-item" id="b-logout" type="button">Sign out</button>
+    </nav>
+
+    <main>
+      <p id="msg" class="msg" role="status" hidden></p>
+
+      <!-- AUTH -->
+      <section id="v-auth" class="box">
+        <div id="auth-main">
+          <h2>Welcome to ExtraTag</h2>
+          <div class="tabs">
+            <button id="t-signup" class="on" type="button">Create Account</button>
+            <button id="t-login" type="button">Login</button>
+          </div>
+          <form id="f-signup" autocomplete="on" novalidate>
+            <div class="row">
+              <input name="firstName" placeholder="First Name" autocomplete="given-name" maxlength="40" aria-label="First name" required>
+              <input name="lastName" placeholder="Last Name" autocomplete="family-name" maxlength="40" aria-label="Last name" required>
+            </div>
+            <input name="email" type="email" placeholder="Email" autocomplete="email" maxlength="320" aria-label="Email" required>
+            <input name="username" placeholder="Username (you@extra-tag.com)" autocomplete="username" maxlength="30" aria-label="Username" required>
+            <input name="password" type="password" placeholder="Password" autocomplete="new-password" aria-label="Password" required>
+            <div class="meter"><span id="bar"></span></div><small id="strength"></small>
+            <button class="primary" type="submit">Register</button>
+          </form>
+          <form id="f-login" autocomplete="on" novalidate hidden>
+            <input name="email" type="email" placeholder="Email or Exmail" autocomplete="username" aria-label="Email" required>
+            <div class="pw-wrap">
+              <input name="password" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required>
+              <button class="eye" id="b-eye" type="button" aria-label="Show password">👁</button>
+            </div>
+            <button class="primary" type="submit">Login</button>
+          </form>
+        </div>
+        <div id="auth-sent" hidden>
+          <h2>Verify Email</h2>
+          <p class="info">We sent a 6-digit code to:<br><strong id="sent-to"></strong></p>
+        </div>
+        <div id="auth-verify" hidden>
+          <h2>Enter Code</h2>
+          <p class="info">Check your inbox and enter the 6-digit code.</p>
+          <form id="f-verify" novalidate>
+            <input name="code" inputmode="numeric" pattern="\d{6}" maxlength="6" placeholder="123456"
+                   class="code-input" autocomplete="one-time-code" aria-label="Verification code" required>
+            <button class="primary" type="submit">Verify &amp; Continue</button>
+          </form>
+          <button class="primary" id="b-back" type="button"
+                  style="background:transparent;border:1px solid var(--line);color:var(--fg);margin-top:8px">Back</button>
+        </div>
+      </section>
+
+      <!-- HOME -->
+      <section id="v-home" class="center" hidden>
+        <h1 id="welcome">Welcome!</h1>
+        <p class="info">what is your plan today?</p>
+      </section>
+
+      <!-- EDIT PROFILE -->
+      <section id="v-edit" class="box" hidden>
+        <h2>Edit Profile</h2>
+        <form id="f-profile" novalidate>
+          <label>First Name<input name="firstName" maxlength="40" required></label>
+          <label>Last Name<input name="lastName" maxlength="40" required></label>
+          <label>Email<input id="ro-email" readonly></label>
+          <label>Username<input id="ro-user" readonly></label>
+          <button class="primary" type="submit">Update Profile</button>
+        </form>
+      </section>
+
+      <!-- AVATAR -->
+      <section id="v-avatar" class="box" hidden>
+        <h2>Avatar Builder</h2>
+        <div id="preview-wrap"><div id="preview" class="shape circle">E</div></div>
+        <div id="colors" class="colors"></div>
+        <div id="shapes" class="shapes"></div>
+        <button class="primary pill" id="b-avatar" type="button">Save Avatar</button>
+      </section>
+
+      <!-- SECURITY -->
+      <section id="v-security" class="box" hidden>
+        <h2>Security</h2>
+        <form id="f-pw" novalidate>
+          <input name="current" type="password" placeholder="Current password" autocomplete="current-password" aria-label="Current password" required>
+          <input name="new" type="password" placeholder="New password" autocomplete="new-password" aria-label="New password" required>
+          <button class="primary" type="submit">Change Password</button>
+        </form>
+        <div id="mbx" hidden>
+          <p class="info">Get your own @extra-tag.com mailbox.</p>
+          <button id="b-mbx" type="button" class="primary">Create my mailbox</button>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="/static/app.js" defer></script>
+</body>
+</html>
